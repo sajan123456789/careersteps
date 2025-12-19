@@ -1,38 +1,140 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>CareerSteps – AI Career Guidance</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <meta name="description" content="AI powered career guidance after 10th and 12th. Explore careers, exams and roadmaps.">
-
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+  
   <style>
-    body{
-      margin:0;
-      font-family:Arial, sans-serif;
-      background:#020617;
-      color:white;
-      text-align:center;
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #0b0f1a;
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(168, 85, 247, 0.15) 0%, transparent 40%);
+      color: #ffffff;
+      overflow-x: hidden;
     }
-    header{
-      padding:40px 20px;
-      background:#020617;
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: all 0.3s ease;
     }
-    a{
-      color:#38bdf8;
-      text-decoration:none;
-      font-weight:bold;
+
+    .glass-card:hover {
+      border-color: rgba(139, 92, 246, 0.5);
+      transform: translateY(-5px);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .nav-blur {
+      background: rgba(11, 15, 26, 0.8);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+      box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+    }
+
+    .btn-secondary {
+      background: #10b981; 
+      box-shadow: 0 4px 15px rgba(16, 185, 129, 0.2);
+    }
+
+    .text-gradient {
+      background: linear-gradient(to right, #ffffff, #a855f7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .step-number {
+      background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
     }
   </style>
 </head>
+
 <body>
 
-<header>
-  <h1>CareerSteps</h1>
-  <p>AI Powered Career Guidance</p>
-  <a href="blog.html">Visit Blog →</a>
+<header class="nav-blur sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+    <div class="flex items-center gap-2">
+      <div class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center">
+        <i class="fas fa-compass text-white"></i>
+      </div>
+      <span class="text-xl font-bold tracking-tight">CareerSteps</span>
+    </div>
+
+    <!-- NAVBAR (ONLY ABOUT ADDED) -->
+    <nav class="hidden md:flex gap-8 text-sm font-medium text-gray-400">
+      <a href="index.html" class="hover:text-white transition">Home</a>
+      <a href="assessment.html" class="hover:text-white transition">Assessment</a>
+      <a href="explore.html" class="hover:text-white transition">All Careers</a>
+      <a href="blog.html" class="hover:text-white transition">Blog</a>
+      <a href="about.html" class="hover:text-white transition">About</a>
+    </nav>
+
+    <div class="flex gap-4">
+      <a href="assessment.html" class="bg-indigo-600/20 text-indigo-400 border border-indigo-500/30 px-5 py-2 rounded-full text-xs font-bold hover:bg-indigo-600 hover:text-white transition">
+        Start Test
+      </a>
+    </div>
+  </div>
 </header>
+
+<!-- CONTENT SAME AS BEFORE (NO CHANGE) -->
+
+<footer class="border-t border-white/5 pt-16 pb-8 px-6 bg-[#080b14]">
+  <div class="max-w-7xl mx-auto grid md:grid-cols-4 gap-12 mb-12 text-left">
+    <div class="col-span-1 md:col-span-2">
+      <div class="flex items-center gap-2 mb-6">
+        <div class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center">
+          <i class="fas fa-compass text-white"></i>
+        </div>
+        <span class="text-xl font-bold">CareerSteps</span>
+      </div>
+      <p class="text-gray-500 text-sm max-w-sm leading-relaxed">
+        Empowering professionals to discover their ideal career paths through AI-powered insights and personalized guidance.
+      </p>
+    </div>
+
+    <div>
+      <h4 class="font-bold mb-6 text-sm uppercase tracking-widest text-gray-300">Quick Links</h4>
+      <ul class="space-y-4 text-sm text-gray-500">
+        <li><a href="index.html" class="hover:text-indigo-400 transition">Features</a></li>
+        <li><a href="assessment.html" class="hover:text-indigo-400 transition">Career Assessment</a></li>
+        <li><a href="explore.html" class="hover:text-indigo-400 transition">Career Database</a></li>
+
+        <!-- FOOTER ABOUT FIXED -->
+        <li><a href="about.html" class="hover:text-indigo-400 transition">About Us</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h4 class="font-bold mb-6 text-sm uppercase tracking-widest text-gray-300">Contact Us</h4>
+      <ul class="space-y-4 text-sm text-gray-500">
+        <li class="flex items-center gap-3 lowercase">
+          <i class="far fa-envelope text-indigo-400"></i>
+          careercompass188@gmail.com
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="max-w-7xl mx-auto pt-8 border-t border-white/5 text-center text-xs text-gray-600">
+    © 2025 CareerSteps. All rights reserved.
+  </div>
+  <a href="privacy.html">Privacy Policy</a>
+<a href="terms.html">Terms & Conditions</a>
+<a href="cookies.html">Cookie Policy</a>
+</footer>
 
 </body>
 </html>

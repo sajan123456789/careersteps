@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Career Details | CareerSteps</title>
+<meta name="description" content="Explore complete career details including eligibility, skills, roadmap, exams and salary. Educational guidance by CareerSteps.">
+
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-slate-50 text-gray-800">
+
+<!-- HEADER -->
+<header class="bg-gradient-to-r from-blue-700 to-blue-600 text-white py-12 px-6 text-center">
+  <h1 id="careerTitle" class="text-4xl md:text-5xl font-black"></h1>
+  <p id="careerCategory" class="mt-3 text-sm opacity-90"></p>
+</header>
+
+<!-- CONTENT -->
+<section class="max-w-5xl mx-auto py-14 px-6">
+<div class="bg-white rounded-2xl shadow-lg p-8 md:p-10 space-y-12">
+
+<!-- ABOUT -->
+<div>
+  <h2 class="text-2xl font-bold mb-3">About This Career</h2>
+  <p id="careerAbout" class="text-gray-700 leading-relaxed"></p>
+</div>
+
+<!-- ELIGIBILITY -->
+<div>
+  <h2 class="text-2xl font-bold mb-3">Eligibility & Education Path</h2>
+  <ul id="careerEligibility" class="list-disc pl-6 text-gray-700 space-y-1"></ul>
+</div>
+
+<!-- SKILLS -->
+<div>
+  <h2 class="text-2xl font-bold mb-3">Key Skills Required</h2>
+  <ul id="careerSkills" class="list-disc pl-6 text-gray-700 space-y-1"></ul>
+</div>
+
+<!-- ROADMAP -->
+<div>
+  <h2 class="text-2xl font-bold mb-3">Step-by-Step Career Roadmap</h2>
+  <ol id="careerRoadmap" class="list-decimal pl-6 text-gray-700 space-y-1"></ol>
+</div>
+
+<!-- EXAMS -->
+<div>
+  <h2 class="text-2xl font-bold mb-3">Entrance Exams / Selection</h2>
+  <p id="careerExams" class="text-gray-700"></p>
+</div>
+
+<!-- SALARY -->
+<div>
+  <h2 class="text-2xl font-bold mb-3">Career Scope & Salary (India)</h2>
+  <p id="careerSalary" class="text-gray-700"></p>
+</div>
+
+<!-- DISCLAIMER -->
+<div class="bg-gray-100 border-l-4 border-blue-600 p-5 rounded-xl">
+  <p class="text-sm text-gray-600">
+    This information is provided for educational and guidance purposes only.
+    Career outcomes depend on individual skills, effort, education, and market demand.
+  </p>
+</div>
+
+<!-- CTA -->
+<div class="flex flex-wrap gap-4">
+  <a href="careers.html" class="text-blue-600 font-bold">← Back to Career Hub</a>
+  <a href="assessment.html" class="ml-auto bg-blue-600 text-white px-5 py-2 rounded-lg font-semibold">
+    Take Career Assessment →
+  </a>
+</div>
+
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer class="bg-slate-900 text-white py-8 text-center text-sm">
+© 2025 CareerSteps | AI-Powered Career Guidance Platform
+</footer>
+
+<!-- DATA -->
+<script src="careers-data.js"></script>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const slug = params.get("career");
+const career = CAREERS?.[slug];
+
+const eligibilityEl = document.getElementById("careerEligibility");
+const skillsEl = document.getElementById("careerSkills");
+const roadmapEl = document.getElementById("careerRoadmap");
+
+function autoText(title, category){
+  return `${title} is a well-known career option in the ${category} field. 
+It offers good growth opportunities, competitive salary, and long-term career stability in India and abroad.`;
+}
+
+function autoSkills(category){
+  const map = {
+    IT: ["Problem solving","Programming","Logical thinking","Continuous learning"],
+    Engineering: ["Technical knowledge","Analytical skills","Problem solving","Teamwork"],
+    Medical: ["Biology knowledge","Empathy","Decision making","Patience"],
+    Commerce: ["Numerical ability","Financial knowledge","Attention to detail","Business sense"],
+    Government: ["Discipline","General knowledge","Leadership","Consistency"]
+  };
+  return map[category] || ["Communication","Adaptability","Critical thinking","Creativity"];
+}
+
+function autoRoadmap(){
+  return [
+    "Choose relevant subjects after 10th / 12th",
+    "Complete required degree or professional course",
+    "Prepare for entrance exams or skill certifications",
+    "Gain internships or hands-on experience",
+    "Apply for jobs or professional practice"
+  ];
+}
+
+if(career){
+  document.getElementById("careerTitle").innerText = career.title;
+  document.getElementById("careerCategory").innerText = career.category;
+
+  document.getElementById("careerAbout").innerText =
+    career.about || autoText(career.title, career.category);
+
+  career.eligibility?.forEach(e => eligibilityEl.innerHTML += `<li>${e}</li>`);
+
+  (career.skills || autoSkills(career.category))
+    .forEach(s => skillsEl.innerHTML += `<li>${s}</li>`);
+
+  (career.roadmap || autoRoadmap())
+    .forEach(r => roadmapEl.innerHTML += `<li>${r}</li>`);
+
+  document.getElementById("careerExams").innerText = career.exams || "Varies by institution";
+  document.getElementById("careerSalary").innerText = career.salary || "Depends on experience and skills";
+}
+else{
+  document.getElementById("careerTitle").innerText = "Career Not Found";
+  document.getElementById("careerAbout").innerText =
+    "Please select a valid career from the Career Hub.";
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Future Career Test (10–12) | CareerSteps</title>
+<meta name="description" content="Free AI based career test for class 10 & 12 students. Simple questions to find best stream – Science, Commerce or Arts.">
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+body{
+  background:#0b0f1a;
+  color:#fff;
+  font-family:Inter,system-ui;
+}
+.card{
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:16px;
+}
+.option{
+  background:#111827;
+  border:1px solid #1f2937;
+}
+.option:hover{border-color:#6366f1;}
+</style>
+</head>
+
+<body>
+
+<header class="text-center py-10">
+  <h1 class="text-3xl md:text-4xl font-extrabold">Future Career Aptitude Test</h1>
+  <p class="text-gray-400 mt-2">Class 10–12 students ke liye simple AI test</p>
+</header>
+
+<section class="max-w-3xl mx-auto px-4 pb-20">
+
+<div id="testBox" class="card p-6 space-y-6">
+  <h2 id="question" class="text-xl font-semibold"></h2>
+  <div id="options" class="space-y-3"></div>
+</div>
+
+</section>
+
+<script>
+const questions = [
+{q:"1️⃣ Tum kis type ka kaam pasand karte ho?",o:[
+{text:"Problems solve karna",t:"science"},
+{text:"Paisa aur planning",t:"commerce"},
+{text:"Creative kaam",t:"arts"},
+{text:"Sab thoda thoda",t:"mixed"}]},
+{q:"2️⃣ Maths tumhe kaisi lagti hai?",o:[
+{text:"Interesting lagti hai",t:"science"},
+{text:"Useful lagti hai",t:"commerce"},
+{text:"Bilkul pasand nahi",t:"arts"},
+{text:"Kabhi kabhi",t:"mixed"}]},
+{q:"3️⃣ Tum kis cheez me ache ho?",o:[
+{text:"Logic & thinking",t:"science"},
+{text:"Calculation",t:"commerce"},
+{text:"Bolna / likhna",t:"arts"},
+{text:"Manage karna",t:"mixed"}]},
+{q:"4️⃣ Future me kya banna chahte ho?",o:[
+{text:"Engineer / Doctor",t:"science"},
+{text:"CA / Banker",t:"commerce"},
+{text:"Writer / Actor",t:"arts"},
+{text:"Manager / Founder",t:"mixed"}]},
+{q:"5️⃣ Exam pressure me tum kaise ho?",o:[
+{text:"Shaant rehta hu",t:"science"},
+{text:"Planning karta hu",t:"commerce"},
+{text:"Nervous ho jata hu",t:"arts"},
+{text:"Subject pe depend",t:"mixed"}]},
+{q:"6️⃣ Favourite subject?",o:[
+{text:"Physics / CS",t:"science"},
+{text:"Accounts / Eco",t:"commerce"},
+{text:"English / History",t:"arts"},
+{text:"Sab mix",t:"mixed"}]},
+{q:"7️⃣ Decision kaise lete ho?",o:[
+{text:"Logic se",t:"science"},
+{text:"Profit dekh ke",t:"commerce"},
+{text:"Dil se",t:"arts"},
+{text:"Situation ke hisab se",t:"mixed"}]},
+{q:"8️⃣ Kaam ka style?",o:[
+{text:"Akele focus",t:"science"},
+{text:"Team ke sath",t:"commerce"},
+{text:"Public ke samne",t:"arts"},
+{text:"Flexible",t:"mixed"}]},
+{q:"9️⃣ Tum khud ko kaise dekhte ho?",o:[
+{text:"Analytical",t:"science"},
+{text:"Practical",t:"commerce"},
+{text:"Creative",t:"arts"},
+{text:"Adaptive",t:"mixed"}]},
+{q:"🔟 Tumhara main goal?",o:[
+{text:"Technical success",t:"science"},
+{text:"Stable income",t:"commerce"},
+{text:"Naam & pehchan",t:"arts"},
+{text:"Sab thoda",t:"mixed"}]}
+];
+
+let index=0;
+let score={science:0,commerce:0,arts:0,mixed:0};
+
+const qEl=document.getElementById("question");
+const oEl=document.getElementById("options");
+
+function loadQ(){
+  let q=questions[index];
+  qEl.innerText=q.q;
+  oEl.innerHTML="";
+  q.o.forEach(op=>{
+    let b=document.createElement("button");
+    b.className="option w-full p-3 rounded-lg text-left";
+    b.innerText=op.text;
+    b.onclick=()=>{score[op.t]++;next();};
+    oEl.appendChild(b);
+  });
+}
+
+function next(){
+  index++;
+  if(index < questions.length){
+    loadQ();
+  }else{
+    finishTest();
+  }
+}
+
+function finishTest(){
+  let best=Object.keys(score).reduce((a,b)=>score[a]>score[b]?a:b);
+  localStorage.setItem("careerResult", best);
+  window.location.href = "future-result.html";
+}
+
+loadQ();
+</script>
+
+</body>
+</html>

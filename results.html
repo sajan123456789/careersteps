@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your AI Career Analysis</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap');
+        body { background-color: #080a10; color: white; font-family: 'Plus Jakarta Sans', sans-serif; }
+        .result-card { background: rgba(255, 255, 255, 0.02); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 32px; }
+        .badge { background: linear-gradient(90deg, #6366f1, #a855f7); padding: 4px 12px; border-radius: 100px; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
+        .career-item { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05); transition: 0.3s; }
+        .career-item:hover { background: rgba(99, 102, 241, 0.1); border-color: #6366f1; transform: scale(1.02); }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-result { animation: slideUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+    </style>
+</head>
+<body class="p-4 md:p-12 min-h-screen">
+
+    <div class="max-w-4xl mx-auto animate-result">
+        <div class="text-center mb-12">
+            <div class="badge inline-block mb-4">Analysis Complete</div>
+            <h1 class="text-3xl md:text-5xl font-extrabold mb-2 bg-gradient-to-r from-white via-indigo-200 to-gray-400 bg-clip-text text-transparent">
+                Your Professional DNA
+            </h1>
+            <p class="text-gray-400 text-sm md:text-base">Based on your cognitive patterns and decision-making logic.</p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6">
+            <div class="md:col-span-2 result-card p-8 md:p-10 relative overflow-hidden">
+                <div class="absolute top-0 right-0 p-6 opacity-10">
+                    <i class="fas fa-microchip text-8xl text-indigo-500"></i>
+                </div>
+                
+                <h3 class="text-indigo-400 font-bold text-xs tracking-widest uppercase mb-2">Primary Archetype</h3>
+                <h2 class="text-4xl font-extrabold mb-6">The Strategic <span class="text-indigo-500">Architect</span></h2>
+                
+                <p class="text-gray-300 leading-relaxed mb-8">
+                    You possess a rare ability to deconstruct complex systems into logical, actionable steps. While others see chaos, you see patterns. You thrive in environments that reward precision, deep technical execution, and long-term planning.
+                </p>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-white/5 p-4 rounded-2xl">
+                        <span class="text-[10px] text-gray-500 block mb-1">LOGIC STRENGTH</span>
+                        <span class="text-xl font-bold">98%</span>
+                    </div>
+                    <div class="bg-white/5 p-4 rounded-2xl">
+                        <span class="text-[10px] text-gray-500 block mb-1">ADAPTABILITY</span>
+                        <span class="text-xl font-bold">84%</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="result-card p-8 flex flex-col justify-between">
+                <div>
+                    <h3 class="text-white font-bold mb-4">Core Traits</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between text-xs mb-1"><span class="text-gray-400">Analytical</span><span class="text-indigo-400">High</span></div>
+                            <div class="w-full h-1 bg-gray-800 rounded-full"><div class="h-full bg-indigo-500 rounded-full" style="width: 90%"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs mb-1"><span class="text-gray-400">Leadership</span><span class="text-purple-400">Moderate</span></div>
+                            <div class="w-full h-1 bg-gray-800 rounded-full"><div class="h-full bg-purple-500 rounded-full" style="width: 65%"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs mb-1"><span class="text-gray-400">Creativity</span><span class="text-pink-400">Balanced</span></div>
+                            <div class="w-full h-1 bg-gray-800 rounded-full"><div class="h-full bg-pink-500 rounded-full" style="width: 75%"></div></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button onclick="window.print()" class="mt-8 w-full py-4 rounded-xl border border-gray-700 hover:bg-white hover:text-black transition font-bold text-xs uppercase tracking-widest">
+                    Download PDF Report
+                </button>
+            </div>
+        </div>
+
+        <div class="mt-12">
+            <h3 class="text-xl font-bold mb-6 flex items-center gap-3">
+                <i class="fas fa-lightbulb text-yellow-500"></i> Recommended Career Paths
+            </h3>
+            <div class="grid md:grid-cols-3 gap-4">
+                <div class="career-item p-6 rounded-2xl flex items-center justify-between">
+                    <div>
+                        <h4 class="font-bold">Software Architect</h4>
+                        <p class="text-[10px] text-gray-500">96% Match Rate</p>
+                    </div>
+                    <i class="fas fa-chevron-right text-gray-700"></i>
+                </div>
+                <div class="career-item p-6 rounded-2xl flex items-center justify-between">
+                    <div>
+                        <h4 class="font-bold">Data Scientist</h4>
+                        <p class="text-[10px] text-gray-500">92% Match Rate</p>
+                    </div>
+                    <i class="fas fa-chevron-right text-gray-700"></i>
+                </div>
+                <div class="career-item p-6 rounded-2xl flex items-center justify-between">
+                    <div>
+                        <h4 class="font-bold">Systems Engineer</h4>
+                        <p class="text-[10px] text-gray-500">89% Match Rate</p>
+                    </div>
+                    <i class="fas fa-chevron-right text-gray-700"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-12 p-8 rounded-3xl bg-gradient-to-r from-indigo-900/40 to-purple-900/40 border border-indigo-500/20 text-center">
+            <h3 class="text-lg font-bold mb-2">Want a personalized roadmap?</h3>
+            <p class="text-gray-400 text-sm mb-6">Our senior mentors can help you land these roles.</p>
+            <a href="index.html" class="inline-block bg-white text-black px-8 py-3 rounded-xl font-bold hover:bg-gray-200 transition">Back to Home</a>
+        </div>
+    </div>
+
+</body>
+</html>

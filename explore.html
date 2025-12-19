@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore 1800+ Careers | CareerSteps</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #0b0f1a; color: white; font-family: 'Inter', sans-serif; }
+        .glass-card { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.08); transition: 0.3s; }
+        .glass-card:hover { border-color: #6366f1; transform: translateY(-5px); }
+        .search-bar { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .category-pill { cursor: pointer; transition: 0.3s; }
+        .category-pill.active { background: #6366f1; color: white; }
+    </style>
+</head>
+<body class="pb-20">
+
+    <header class="p-6 border-b border-white/5 bg-slate-900/50 sticky top-0 z-50 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center"><i class="fas fa-compass"></i></div>
+                <span class="text-xl font-bold">CareerSteps</span>
+            </a>
+            <a href="assessment.html" class="bg-indigo-600 px-5 py-2 rounded-full text-xs font-bold hover:bg-indigo-700">Take Test</a>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-6 pt-12">
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-extrabold mb-4">Explore <span class="text-indigo-400">1800+ Careers</span></h1>
+            <p class="text-gray-400">Discover unique paths tailored to your interests. No duplicates, only opportunities.</p>
+        </div>
+
+        <div class="flex flex-col md:flex-row gap-4 mb-10">
+            <div class="flex-1 relative">
+                <i class="fas fa-search absolute left-4 top-4 text-gray-500"></i>
+                <input type="text" id="careerSearch" onkeyup="filterCareers()" placeholder="Search careers (e.g. AI Engineer, Surgeon...)" class="search-bar w-full pl-12 pr-4 py-3 rounded-xl outline-none focus:border-indigo-500">
+            </div>
+            <select id="categoryFilter" onchange="filterCareers()" class="search-bar px-4 py-3 rounded-xl outline-none text-gray-300">
+                <option value="All">All Categories</option>
+                <option value="Technology">Technology</option>
+                <option value="Medical">Medical</option>
+                <option value="Business">Business</option>
+                <option value="Arts">Creative Arts</option>
+            </select>
+        </div>
+
+        <div id="careerGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            </div>
+    </main>
+
+    <script>
+        // Unique Data (Duplicate-free)
+        const careers = [
+            { title: "Machine Learning Engineer", cat: "Technology", icon: "fa-robot", desc: "Build AI models and smart systems." },
+            { title: "Neurosurgeon", cat: "Medical", icon: "fa-brain", desc: "Specialize in brain and nervous system surgery." },
+            { title: "Investment Banker", cat: "Business", icon: "fa-chart-line", desc: "Manage large scale financial portfolios." },
+            { title: "UI/UX Designer", cat: "Arts", icon: "fa-paint-brush", desc: "Create beautiful digital experiences." },
+            { title: "Cloud Architect", cat: "Technology", icon: "fa-cloud", desc: "Design and manage cloud infrastructures." },
+            { title: "Data Scientist", cat: "Technology", icon: "fa-database", desc: "Analyze big data for business insights." },
+            { title: "Aeronautical Engineer", cat: "Technology", icon: "fa-plane", desc: "Design aircraft and spacecraft." },
+            { title: "Chartered Accountant", cat: "Business", icon: "fa-calculator", desc: "Expert in taxation and auditing." },
+            { title: "Clinical Psychologist", cat: "Medical", icon: "fa-user-md", desc: "Help people manage mental health." }
+            // Aap aise hi 1800+ data add kar sakte hain
+        ];
+
+        function displayCareers(data) {
+            const grid = document.getElementById('careerGrid');
+            grid.innerHTML = data.map(c => `
+                <div class="glass-card p-6 rounded-2xl flex flex-col gap-4">
+                    <div class="w-12 h-12 bg-indigo-500/10 rounded-xl flex items-center justify-center text-indigo-400">
+                        <i class="fas ${c.icon} text-xl"></i>
+                    </div>
+                    <div>
+                        <span class="text-[10px] uppercase tracking-widest text-indigo-400 font-bold">${c.cat}</span>
+                        <h3 class="text-xl font-bold mt-1">${c.title}</h3>
+                        <p class="text-gray-400 text-sm mt-2">${c.desc}</p>
+                    </div>
+                    <button class="mt-4 text-sm font-semibold text-indigo-400 hover:text-white flex items-center gap-2">
+                        View Roadmap <i class="fas fa-arrow-right text-xs"></i>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function filterCareers() {
+            const searchTerm = document.getElementById('careerSearch').value.toLowerCase();
+            const category = document.getElementById('categoryFilter').value;
+
+            const filtered = careers.filter(c => {
+                const matchesSearch = c.title.toLowerCase().includes(searchTerm);
+                const matchesCat = category === "All" || c.cat === category;
+                return matchesSearch && matchesCat;
+            });
+
+            displayCareers(filtered);
+        }
+
+        // Initial Load
+        displayCareers(careers);
+    </script>
+</body>
+</html>

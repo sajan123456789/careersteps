@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Career DNA - Assessment</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap');
+        body { background-color: #080a10; color: white; font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; }
+        .assessment-card { background: rgba(255, 255, 255, 0.02); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 32px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); }
+        .option-btn { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); text-align: left; cursor: pointer; position: relative; overflow: hidden; }
+        .option-btn:hover { border-color: #818cf8; background: rgba(99, 102, 241, 0.08); transform: translateY(-2px); }
+        .option-btn.selected { border-color: #6366f1; background: linear-gradient(90deg, rgba(99, 102, 241, 0.15), rgba(168, 85, 247, 0.15)); box-shadow: 0 0 20px rgba(99, 102, 241, 0.2); }
+        #progress-bar { transition: width 0.6s cubic-bezier(0.65, 0, 0.35, 1); background: linear-gradient(to right, #6366f1, #a855f7, #ec4899); }
+        .animate-fade { animation: fadeIn 0.5s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body class="p-4 md:p-12 min-h-screen flex items-center justify-center">
+
+    <div class="max-w-2xl w-full mx-auto" id="quiz-container">
+        <div class="flex justify-between items-end mb-4 px-2">
+            <div>
+                <p class="text-[10px] uppercase tracking-[2px] text-indigo-400 font-bold mb-1" id="category-name">CORE ARCHETYPE</p>
+                <h3 class="text-xs font-medium text-gray-400">Analysis Progress: <span id="current-q-num" class="text-white">1</span> / <span id="total-q">10</span></h3>
+            </div>
+            <div class="text-right text-xs font-bold text-indigo-400" id="percentage-text">0%</div>
+        </div>
+
+        <div class="w-full h-1 bg-gray-800/50 rounded-full mb-10 overflow-hidden">
+            <div id="progress-bar" style="width: 0%" class="h-full rounded-full"></div>
+        </div>
+
+        <div class="assessment-card p-8 md:p-12">
+            <div id="question-icon" class="w-12 h-12 bg-indigo-500/10 rounded-xl flex items-center justify-center mb-8 border border-indigo-500/20">
+                <i class="fas fa-microchip text-indigo-400"></i>
+            </div>
+
+            <div class="animate-fade" id="content-animator">
+                <h2 id="question-text" class="text-xl md:text-2xl font-bold mb-3 leading-tight tracking-tight text-gray-100">Initializing AI Assessment...</h2>
+                <p id="sub-text" class="text-gray-500 text-sm mb-10 italic">Analyze the options carefully; our neural engine is tracking your logic pattern.</p>
+
+                <div class="space-y-4" id="options-container">
+                    </div>
+            </div>
+
+            <div class="mt-10">
+                <button id="next-btn" onclick="nextQuestion()" disabled class="w-full py-5 rounded-2xl bg-gray-800 text-gray-500 font-bold transition-all duration-300 cursor-not-allowed uppercase tracking-widest text-xs">
+                    Selection Required
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "How do you approach a complex, high-stakes project?",
+                options: ["Deconstruct it into logical workflows", "Align the team's strengths and morale", "Imagine an entirely new way to solve it", "Optimize existing processes for efficiency"],
+                category: "PROBLEM SOLVING",
+                icon: "fa-project-diagram"
+            },
+            {
+                question: "In a team conflict over technical direction, you usually...",
+                options: ["Analyze data to find the objective truth", "Mediate to reach a collaborative consensus", "Propose a bold, alternative vision", "Implement the most stable, reliable path"],
+                category: "SOCIAL DYNAMICS",
+                icon: "fa-users"
+            },
+            {
+                question: "What defines professional success for you?",
+                options: ["Mastering specialized expertise", "Empowering others to succeed", "Leaving a creative legacy", "Building a flawless, scalable system"],
+                category: "VALUE SYSTEMS",
+                icon: "fa-trophy"
+            },
+            {
+                question: "When faced with sudden market changes, your first instinct is:",
+                options: ["Deep-dive into the new technical data", "Check in on the team's emotional state", "Pivot to a disruptive new strategy", "Re-calculate resource allocation"],
+                category: "ADAPTABILITY",
+                icon: "fa-bolt"
+            },
+            {
+                question: "Which work environment fuels your growth?",
+                options: ["A quiet, research-heavy lab", "A high-energy collaborative hub", "A startup with no rules", "An organized, structured corporation"],
+                category: "ENVIRONMENT",
+                icon: "fa-building"
+            },
+            {
+                question: "How do you handle 'impossible' deadlines?",
+                options: ["Automating repetitive tasks", "Motivating the team to push harder", "Finding a clever 'shortcut' solution", "Meticulously planning every second"],
+                category: "EXECUTION",
+                icon: "fa-clock"
+            },
+            {
+                question: "If you had a weekend to learn something, it would be:",
+                options: ["A new programming language", "Psychology and leadership skills", "Design and creative arts", "Finance and operational logistics"],
+                category: "GROWTH MINDSET",
+                icon: "fa-book-open"
+            },
+            {
+                question: "What is your biggest fear in a career?",
+                options: ["Inaccuracy and logical errors", "Conflict and team breakdown", "Stagnation and boring routine", "Chaos and lack of structure"],
+                category: "CORE MOTIVATION",
+                icon: "fa-shield-heart"
+            },
+            {
+                question: "How do you prefer to give feedback?",
+                options: ["Direct and data-backed", "Empathetic and encouraging", "Visual and inspiring", "Formal and process-oriented"],
+                category: "COMMUNICATION",
+                icon: "fa-comments"
+            },
+            {
+                question: "Your primary role in a group is often:",
+                options: ["The Expert", "The Leader", "The Innovator", "The Planner"],
+                category: "TEAM ROLE",
+                icon: "fa-star"
+            }
+        ];
+
+        let currentStep = 0;
+        let selectedOption = null;
+        const totalQ = questions.length;
+        document.getElementById('total-q').innerText = totalQ;
+
+        function loadQuestion() {
+            const q = questions[currentStep];
+            const animator = document.getElementById('content-animator');
+            
+            // Re-trigger animation
+            animator.style.animation = 'none';
+            animator.offsetHeight; 
+            animator.style.animation = null;
+
+            document.getElementById('question-text').innerText = q.question;
+            document.getElementById('category-name').innerText = q.category;
+            document.getElementById('current-q-num').innerText = currentStep + 1;
+            document.getElementById('question-icon').innerHTML = `<i class="fas ${q.icon} text-indigo-400 text-xl"></i>`;
+            
+            const progress = (currentStep / totalQ) * 100;
+            document.getElementById('progress-bar').style.width = progress + "%";
+            document.getElementById('percentage-text').innerText = Math.round(progress) + "%";
+
+            const container = document.getElementById('options-container');
+            container.innerHTML = '';
+            selectedOption = null;
+            updateButtonState();
+
+            q.options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn w-full p-5 rounded-2xl text-sm font-medium text-gray-300';
+                btn.innerText = opt;
+                btn.onclick = function() {
+                    document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+                    btn.classList.add('selected');
+                    selectedOption = opt;
+                    updateButtonState();
+                };
+                container.appendChild(btn);
+            });
+        }
+
+        function updateButtonState() {
+            const btn = document.getElementById('next-btn');
+            if (selectedOption) {
+                btn.disabled = false;
+                btn.className = "w-full py-5 rounded-2xl bg-indigo-600 text-white font-extrabold hover:bg-indigo-500 transition-all duration-300 shadow-xl shadow-indigo-500/20 cursor-pointer uppercase tracking-widest text-xs";
+                btn.innerText = currentStep === totalQ - 1 ? "Generate AI Report →" : "Next Phase →";
+            } else {
+                btn.disabled = true;
+                btn.className = "w-full py-5 rounded-2xl bg-gray-800 text-gray-500 font-bold transition-all duration-300 cursor-not-allowed uppercase tracking-widest text-xs";
+                btn.innerText = "Selection Required";
+            }
+        }
+
+        function nextQuestion() {
+            if (currentStep < totalQ - 1) {
+                currentStep++;
+                loadQuestion();
+            } else {
+                // Final Progress to 100%
+                document.getElementById('progress-bar').style.width = "100%";
+                document.getElementById('percentage-text').innerText = "100%";
+
+                document.getElementById('quiz-container').innerHTML = `
+                    <div class="assessment-card p-16 text-center animate-fade">
+                        <div class="relative w-20 h-20 mx-auto mb-8">
+                            <div class="absolute inset-0 border-4 border-indigo-500/20 rounded-full"></div>
+                            <div class="absolute inset-0 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin"></div>
+                        </div>
+                        <h2 class="text-2xl font-extrabold mb-4 bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">Decoding Your DNA...</h2>
+                        <p class="text-gray-400 text-sm leading-relaxed max-w-xs mx-auto">Our AI engine is correlating 10 data points with over 500+ career trajectories.</p>
+                    </div>
+                `;
+                setTimeout(() => { window.location.href = "results.html"; }, 3500);
+            }
+        }
+
+        loadQuestion();
+    </script>
+</body>
+</html>

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Career Test | CareerSteps</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+
+<body class="bg-gray-100 text-gray-800">
+
+<!-- HEADER -->
+<div class="bg-blue-700 text-white py-6 text-center">
+  <h1 class="text-3xl font-bold">Career Stream Test</h1>
+  <p class="text-sm opacity-90">After 10th & 12th – Smart Career Guidance</p>
+</div>
+
+<section class="max-w-xl mx-auto mt-8 bg-white p-6 rounded-2xl shadow">
+
+<!-- STEP 1: NAME -->
+<div id="stepName">
+  <h2 class="font-bold mb-3">Your Name</h2>
+  <input id="studentName" class="w-full border p-3 rounded-lg mb-4" placeholder="Enter your name">
+  <button onclick="goToClassStep()" class="w-full bg-blue-600 text-white py-3 rounded-lg font-bold">
+    Continue
+  </button>
+</div>
+
+<!-- STEP 2: CLASS -->
+<div id="stepClass" class="hidden">
+  <h2 class="font-bold mb-4 text-center">You are currently:</h2>
+  <button onclick="startTest('10th')" class="w-full border p-4 rounded-lg mb-3">
+    After 10th
+  </button>
+  <button onclick="startTest('12th')" class="w-full border p-4 rounded-lg">
+    After 12th
+  </button>
+</div>
+
+<!-- QUIZ -->
+<div id="quiz" class="hidden">
+  <h2 id="question" class="font-bold mb-4"></h2>
+  <div id="options" class="space-y-3"></div>
+
+  <button onclick="goBack()" class="mt-4 text-sm text-blue-600 font-bold">
+    ← Previous Question
+  </button>
+</div>
+
+<!-- RESULT -->
+<div id="result" class="hidden text-center">
+  <h2 class="text-2xl font-bold mb-3">Your Career Recommendation</h2>
+  <p id="resultText" class="mb-6 text-gray-700"></p>
+
+  <button onclick="downloadPDF()" class="w-full bg-green-600 text-white py-3 rounded-lg font-bold mb-3">
+    Download PDF Report
+  </button>
+
+  <button onclick="shareWhatsApp()" class="w-full bg-green-500 text-white py-3 rounded-lg font-bold mb-3">
+    Share on WhatsApp
+  </button>
+
+  <a href="index.html" class="text-blue-600 font-bold">
+    Back to Home
+  </a>
+</div>
+
+</section>
+
+<script>
+let studentName = "";
+let level = "";
+let current = 0;
+let history = [];
+
+const score = { Science: 0, Commerce: 0, Arts: 0 };
+
+const questions10 = [
+  {
+    q: "Which subjects do you enjoy the most?",
+    o: [
+      { t: "Maths & Science concepts", s: "Science", w: 3 },
+      { t: "Biology & health related topics", s: "Science", w: 2 },
+      { t: "Accounts, business & money", s: "Commerce", w: 3 },
+      { t: "History, writing & creativity", s: "Arts", w: 3 }
+    ]
+  },
+  {
+    q: "What kind of work excites you?",
+    o: [
+      { t: "Technology & innovation", s: "Science", w: 3 },
+      { t: "Managing money or business", s: "Commerce", w: 3 },
+      { t: "Helping society / creative work", s: "Arts", w: 3 }
+    ]
+  },
+  {
+    q: "Which skill describes you best?",
+    o: [
+      { t: "Logical thinking", s: "Science", w: 2 },
+      { t: "Planning & decision making", s: "Commerce", w: 2 },
+      { t: "Communication & expression", s: "Arts", w: 2 }
+    ]
+  }
+];
+
+const questions12 = [
+  {
+    q: "What kind of career lifestyle do you want?",
+    o: [
+      { t: "High-tech & problem solving", s: "Science", w: 3 },
+      { t: "Corporate, finance & management", s: "Commerce", w: 3 },
+      { t: "Law, UPSC, media or design", s: "Arts", w: 3 }
+    ]
+  },
+  {
+    q: "What motivates you the most?",
+    o: [
+      { t: "Innovation & learning", s: "Science", w: 2 },
+      { t: "Money & stability", s: "Commerce", w: 2 },
+      { t: "Impact & creativity", s: "Arts", w: 2 }
+    ]
+  },
+  {
+    q: "Which work environment suits you?",
+    o: [
+      { t: "Labs / IT / research", s: "Science", w: 2 },
+      { t: "Office / business setup", s: "Commerce", w: 2 },
+      { t: "Field / flexible environment", s: "Arts", w: 2 }
+    ]
+  }
+];
+
+let questions = [];
+
+function goToClassStep(){
+  studentName = document.getElementById("studentName").value.trim();
+  if(!studentName){
+    alert("Please enter your name");
+    return;
+  }
+  document.getElementById("stepName").classList.add("hidden");
+  document.getElementById("stepClass").classList.remove("hidden");
+}
+
+function startTest(lvl){
+  level = lvl;
+  questions = lvl === "10th" ? questions10 : questions12;
+  document.getElementById("stepClass").classList.add("hidden");
+  document.getElementById("quiz").classList.remove("hidden");
+  loadQuestion();
+}
+
+function loadQuestion(){
+  document.getElementById("question").innerText = questions[current].q;
+  const opt = document.getElementById("options");
+  opt.innerHTML = "";
+
+  questions[current].o.forEach(ans=>{
+    const btn = document.createElement("button");
+    btn.className = "w-full border p-3 rounded-lg hover:bg-blue-50";
+    btn.innerText = ans.t;
+    btn.onclick = ()=>{
+      history.push({ s: ans.s, w: ans.w });
+      score[ans.s] += ans.w;
+      current++;
+      current < questions.length ? loadQuestion() : showResult();
+    };
+    opt.appendChild(btn);
+  });
+}
+
+function goBack(){
+  if(current === 0) return;
+  const last = history.pop();
+  score[last.s] -= last.w;
+  current--;
+  loadQuestion();
+}
+
+function showResult(){
+  document.getElementById("quiz").classList.add("hidden");
+  document.getElementById("result").classList.remove("hidden");
+
+  const finalStream = Object.keys(score).reduce((a,b)=>score[a]>score[b]?a:b);
+
+  document.getElementById("resultText").innerText =
+    `${studentName}, based on your answers, the best stream for you after ${level} is: ${finalStream}.
+You should explore careers related to ${finalStream}.`;
+}
+
+function downloadPDF(){
+  const { jsPDF } = window.jspdf;
+  const pdf = new jsPDF();
+  pdf.text("CareerSteps – Career Test Result", 10, 15);
+  pdf.text(document.getElementById("resultText").innerText, 10, 30);
+  pdf.save("career-test-result.pdf");
+}
+
+function shareWhatsApp(){
+  const text = document.getElementById("resultText").innerText;
+  window.open("https://wa.me/?text=" + encodeURIComponent(text));
+}
+</script>
+
+</body>
+</html>

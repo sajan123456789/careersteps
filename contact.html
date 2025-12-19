@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us | CareerSteps</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-slate-50 text-gray-800">
+
+<!-- NAV -->
+<nav class="bg-white shadow-sm p-4">
+  <div class="max-w-6xl mx-auto">
+    <a href="index.html" class="text-blue-700 font-bold">← Back to Home</a>
+  </div>
+</nav>
+
+<!-- CONTACT SECTION -->
+<section class="py-20 px-6">
+<div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16">
+
+<!-- INFO -->
+<div>
+  <h1 class="text-5xl font-black mb-6">Get in Touch</h1>
+  <p class="text-lg text-gray-600 mb-8">
+    Have a question about career options or our Career Compass?
+    Feel free to reach out — we usually respond within 24–48 hours.
+  </p>
+
+  <div class="space-y-6">
+    <div class="flex items-center space-x-4">
+      <div class="bg-blue-600 text-white p-3 rounded-full">
+        <i class="fas fa-envelope"></i>
+      </div>
+      <div>
+        <p class="text-sm text-gray-500 font-bold uppercase">Email Us</p>
+        <a href="mailto:support@careercompass.life"
+           class="text-xl font-medium text-blue-700">
+          support@careercompass.life
+        </a>
+      </div>
+    </div>
+
+    <div class="flex items-center space-x-4">
+      <div class="bg-orange-500 text-white p-3 rounded-full">
+        <i class="fas fa-location-dot"></i>
+      </div>
+      <div>
+        <p class="text-sm text-gray-500 font-bold uppercase">Location</p>
+        <p class="text-xl font-medium">New Delhi, India</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FORM -->
+<div class="bg-white p-8 rounded-3xl shadow-xl border border-gray-100">
+
+<form action="mailto:support@careercompass.life" method="POST" enctype="text/plain" class="space-y-4">
+
+  <div>
+    <label class="block text-sm font-bold mb-2">Full Name</label>
+    <input type="text" name="Name" required
+      class="w-full p-3 rounded-lg border border-gray-200 focus:border-blue-600 outline-none"
+      placeholder="Your name">
+  </div>
+
+  <div>
+    <label class="block text-sm font-bold mb-2">Email Address</label>
+    <input type="email" name="Email" required
+      class="w-full p-3 rounded-lg border border-gray-200 focus:border-blue-600 outline-none"
+      placeholder="you@example.com">
+  </div>
+
+  <div>
+    <label class="block text-sm font-bold mb-2">Message</label>
+    <textarea name="Message" rows="4" required
+      class="w-full p-3 rounded-lg border border-gray-200 focus:border-blue-600 outline-none"
+      placeholder="How can we help you?"></textarea>
+  </div>
+
+  <p class="text-xs text-gray-500">
+    This form uses your default email app to send messages. We do not store
+    personal information on our servers.
+  </p>
+
+  <button type="submit"
+    class="w-full bg-blue-700 text-white font-bold py-4 rounded-lg hover:bg-blue-800 transition shadow-lg">
+    Send Message
+  </button>
+
+</form>
+
+</div>
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer class="bg-slate-900 text-white py-6 text-center text-sm">
+© 2025 CareerSteps | Contact & Support
+</footer>
+
+</body>
+</html>
